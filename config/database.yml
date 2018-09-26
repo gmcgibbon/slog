@@ -1,0 +1,56 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  primary:
+    <<: *default
+    database: db/primary_development.sqlite3
+  alpha:
+    <<: *default
+    database: db/alpha_development.sqlite3
+    migrations_paths: db/shard_migrate
+    fixtures_path: test/alpha_fixtures
+  beta:
+    <<: *default
+    database: db/beta_development.sqlite3
+    migrations_paths: db/shard_migrate
+    fixtures_path: test/beta_fixtures
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  primary:
+    <<: *default
+    database: db/primary_test.sqlite3
+  alpha:
+    <<: *default
+    database: db/alpha_test.sqlite3
+    migrations_paths: db/shard_migrate
+    fixtures_path: test/alpha_fixtures
+  beta:
+    <<: *default
+    database: db/beta_test.sqlite3
+    migrations_paths: db/shard_migrate
+    fixtures_path: test/beta_fixtures
+
+production:
+  primary:
+    <<: *default
+    database: db/primary_production.sqlite3
+  alpha:
+    <<: *default
+    shard: true
+    database: db/alpha_production.sqlite3
+  beta:
+    <<: *default
+    shard: true
+    database: db/beta_production.sqlite3

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+coding_horror:
+  shard: alpha
+  blog: coding_horror
+
+giant_robots:
+  shard: beta
+  blog: giant_robots
